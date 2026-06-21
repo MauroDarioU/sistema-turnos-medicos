@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Turnos Médicos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>Sistema de Turnos Médicos</h1>
+    <div class="header-derecha">
+      <span id="sesionInfo"></span>
+      <button id="btnLogout" style="display:none;">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <!-- ============ SECCIÓN: AUTENTICACIÓN ============ -->
+  <section id="seccionAuth" class="tarjeta">
+
+    <div class="portada">
+      <img src="/img/logo-issd.png" alt="ISSD - Instituto Superior Santo Domingo" class="logo-issd">
+      <h2 class="titulo-app">TURMED ISSD</h2>
+      <div class="tabsAuth">
+        <button type="button" id="tabRegistro" class="tab-auth">Registrarse</button>
+        <button type="button" id="tabLogin" class="tab-auth">Iniciar sesión</button>
+      </div>
+    </div>
+
+    <div class="columnas">
+
+      <div class="columna oculto" id="panelRegistro">
+        <h2>Registrarse</h2>
+        <form id="formRegistro">
+          <label for="regNombre">Nombre completo</label>
+          <input type="text" id="regNombre" required>
+
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" required>
+
+          <label for="regPassword">Contraseña</label>
+          <input type="password" id="regPassword" required minlength="8">
+          <small>Mínimo 8 caracteres, al menos 1 número y 1 mayúscula.</small>
+
+          <button type="submit">Crear cuenta (rol: cliente)</button>
+        </form>
+        <div id="mensajeRegistro" class="mensaje"></div>
+      </div>
+
+      <div class="columna oculto" id="panelLogin">
+        <h2>Iniciar sesión</h2>
+        <form id="formLogin">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" required>
+
+          <label for="loginPassword">Contraseña</label>
+          <input type="password" id="loginPassword" required>
+
+          <button type="submit">Ingresar</button>
+        </form>
+        <div id="mensajeLogin" class="mensaje"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN: SACAR TURNO (rol cliente) ============ -->
+  <section id="seccionSacarTurno" class="tarjeta oculto">
+    <h2>Sacar un turno</h2>
+    <form id="formTurno">
+      <label for="turnoProfesional">Profesional</label>
+      <select id="turnoProfesional" required></select>
+
+      <label for="turnoEspecialidad">Especialidad</label>
+      <input type="text" id="turnoEspecialidad" readonly required>
+      <small>Se completa automáticamente según el profesional elegido.</small>
+
+      <label for="turnoFecha">Fecha</label>
+      <input type="date" id="turnoFecha" required>
+
+      <label for="turnoHora">Hora</label>
+      <input type="time" id="turnoHora" required>
+
+      <label for="turnoMotivo">Motivo de la consulta (opcional)</label>
+      <textarea id="turnoMotivo" maxlength="500"></textarea>
+
+      <button type="submit">Solicitar turno</button>
+    </form>
+    <div id="mensajeTurno" class="mensaje"></div>
+  </section>
+
+  <!-- ============ SECCIÓN: MIS TURNOS (rol cliente) ============ -->
+  <section id="seccionMisTurnos" class="tarjeta oculto">
+    <h2>Mis turnos</h2>
+    <button id="btnRefrescarMisTurnos" class="btn-secundario">Actualizar listado</button>
+    <table id="tablaMisTurnos">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Especialidad</th>
+          <th>Profesional</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECCIÓN: ADMIN - TODOS LOS TURNOS ============ -->
+  <section id="seccionAdminTurnos" class="tarjeta oculto">
+    <h2>Administración de turnos</h2>
+
+    <div class="filtros">
+      <label for="filtroEspecialidad">Filtrar por especialidad</label>
+      <input type="text" id="filtroEspecialidad" placeholder="Ej: Cardiología">
+
+      <label for="filtroEstado">Filtrar por estado</label>
+      <select id="filtroEstado">
+        <option value="">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmado">Confirmado</option>
+        <option value="cancelado">Cancelado</option>
+        <option value="completado">Completado</option>
+      </select>
+
+      <button id="btnFiltrarTurnos" class="btn-secundario">Buscar</button>
+    </div>
+
+    <table id="tablaAdminTurnos">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Especialidad</th>
+          <th>Paciente</th>
+          <th>Profesional</th>
+          <th>Estado</th>
+          <th>Cambiar estado</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <!-- ============ SECCIÓN: ADMIN - ALTA DE PROFESIONALES ============ -->
+  <section id="seccionAdminUsuarios" class="tarjeta oculto">
+    <h2>Dar de alta un profesional</h2>
+    <form id="formCrearProfesional">
+      <label for="profNombre">Nombre</label>
+      <input type="text" id="profNombre" required>
+
+      <label for="profEmail">Email</label>
+      <input type="email" id="profEmail" required>
+
+      <label for="profPassword">Contraseña</label>
+      <input type="password" id="profPassword" required minlength="8">
+
+      <label for="profEspecialidad">Especialidad</label>
+      <input type="text" id="profEspecialidad" required>
+
+      <button type="submit">Crear profesional (rol: admin)</button>
+    </form>
+    <div id="mensajeProfesional" class="mensaje"></div>
+  </section>
+
+  <footer class="footer-creditos">
+    <span>Profesor: Santiago M Henn</span>
+    <span>Alumno: Mauro Uñate</span>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/main.js"></script>
+</body>
+</html>

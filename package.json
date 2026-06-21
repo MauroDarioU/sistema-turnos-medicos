@@ -1,0 +1,43 @@
+{
+  "name": "sistema-turnos-medicos",
+  "version": "1.0.0",
+  "description": "API REST para la gestión de turnos médicos. Proyecto final de Programación 2 (Node.js, Express, MongoDB, JWT, Clean Architecture).",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "seed:admin": "node src/utils/seedAdmin.js",
+    "seed:demo": "node src/utils/seedDatosDemo.js",
+    "test": "jest --runInBand"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "jwt",
+    "turnos",
+    "clean-architecture"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^9.4.1",
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "<rootDir>/tests/setup/env.js"
+    ],
+    "testTimeout": 30000
+  }
+}

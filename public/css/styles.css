@@ -1,0 +1,380 @@
+/* public/css/styles.css
+ *
+ * Estilos del front-end de prueba. Centralizamos la paleta de colores en
+ * variables CSS (:root) para que toda la identidad visual sea coherente:
+ * un solo lugar define "qué es el verde institucional", "qué es el color
+ * de acento", "qué color significa turno pendiente", etc. Esto es lo mismo
+ * que hacemos en el backend con config.js: una sola fuente de verdad.
+ */
+
+:root {
+  /* Color institucional (tomado del logo ISSD) */
+  --color-primario: #0f766e;
+  --color-primario-oscuro: #0c5c55;
+  --color-primario-claro: #e1f5ee;
+
+  /* Color de acento, para acciones que requieren atención del usuario */
+  --color-acento: #d85a30;
+  --color-acento-oscuro: #993c1d;
+  --color-acento-claro: #faece7;
+
+  /* Colores semánticos para los estados de un turno */
+  --estado-pendiente-bg: #faeeda;
+  --estado-pendiente-texto: #633806;
+  --estado-confirmado-bg: #e1f5ee;
+  --estado-confirmado-texto: #085041;
+  --estado-cancelado-bg: #fcebeb;
+  --estado-cancelado-texto: #791f1f;
+  --estado-completado-bg: #f1efe8;
+  --estado-completado-texto: #444441;
+
+  /* Neutros */
+  --color-fondo: #f4f6f8;
+  --color-texto: #1e293b;
+  --color-texto-secundario: #64748b;
+  --color-borde: #e2e6ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--color-fondo);
+  margin: 0;
+  padding: 0;
+  color: var(--color-texto);
+}
+
+header {
+  background: var(--color-primario);
+  color: white;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.header-derecha {
+  display: flex;
+  align-items: center;
+}
+
+#sesionInfo {
+  font-size: 0.9rem;
+}
+
+#btnLogout {
+  margin-top: 0;
+  margin-left: 1rem;
+  background: white;
+  color: var(--color-primario);
+  border: none;
+}
+
+#btnLogout:hover {
+  background: var(--color-fondo);
+}
+
+.tarjeta {
+  background: white;
+  margin: 1.5rem auto;
+  max-width: 1000px;
+  padding: 1.75rem 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-borde);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.oculto {
+  display: none;
+}
+
+.columnas {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.columna {
+  flex: 1;
+  min-width: 280px;
+}
+
+.columna h2 {
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  color: var(--color-texto);
+}
+
+input, select, textarea {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.15s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-primario);
+}
+
+input[readonly] {
+  background: var(--color-fondo);
+  color: var(--color-texto-secundario);
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+small {
+  color: var(--color-texto-secundario);
+  font-size: 0.8rem;
+}
+
+/* ---------- Botones ----------
+ * Hay dos estilos de botón con propósitos distintos, siguiendo un criterio
+ * de jerarquía visual: el botón PRIMARIO (verde institucional) es para
+ * acciones de "avanzar" (loguearse, crear, guardar). El botón de ACENTO
+ * (coral) es para acciones que requieren la atención del usuario porque
+ * tienen consecuencias (cancelar un turno, solicitar algo nuevo).
+ */
+
+button {
+  margin-top: 0.8rem;
+  padding: 0.65rem 1.1rem;
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.15s ease;
+}
+
+button:hover {
+  background: var(--color-primario-oscuro);
+}
+
+button.btn-acento {
+  background: var(--color-acento);
+}
+
+button.btn-acento:hover {
+  background: var(--color-acento-oscuro);
+}
+
+button.btn-secundario {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  border: 1px solid var(--color-borde);
+}
+
+button.btn-secundario:hover {
+  background: var(--color-borde);
+}
+
+.mensaje {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.mensaje.exito {
+  color: var(--color-primario-oscuro);
+}
+
+.mensaje.error {
+  color: var(--estado-cancelado-texto);
+}
+
+/* ---------- Tablas ---------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--color-borde);
+  font-size: 0.9rem;
+}
+
+th {
+  background: var(--color-fondo);
+  color: var(--color-texto-secundario);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Badges de estado ----------
+ * Cada estado de turno tiene su propio color con significado: ámbar para
+ * "atención" (pendiente), verde para "resuelto" (confirmado), rojo suave
+ * para "cancelado", gris para "ya pasó" (completado). Esto permite leer
+ * el estado de una tabla completa de un solo vistazo, sin tener que leer
+ * cada palabra.
+ */
+
+.badge-estado {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge-estado.pendiente {
+  background: var(--estado-pendiente-bg);
+  color: var(--estado-pendiente-texto);
+}
+
+.badge-estado.confirmado {
+  background: var(--estado-confirmado-bg);
+  color: var(--estado-confirmado-texto);
+}
+
+.badge-estado.cancelado {
+  background: var(--estado-cancelado-bg);
+  color: var(--estado-cancelado-texto);
+}
+
+.badge-estado.completado {
+  background: var(--estado-completado-bg);
+  color: var(--estado-completado-texto);
+}
+
+/* ---------- Estado vacío de tablas ----------
+ * Cuando una tabla no tiene filas, mostramos un mensaje claro en lugar de
+ * dejar la tabla en silencio (lo que podría parecer que algo no cargó).
+ */
+
+.estado-vacio {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--color-texto-secundario);
+}
+
+.estado-vacio .icono-vacio {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+.estado-vacio p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.filtros {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filtros label {
+  margin-top: 0;
+}
+
+select.estado-select {
+  padding: 0.4rem 0.6rem;
+}
+
+/* ---------- Portada: logo + título + tabs de Registro/Login ---------- */
+
+.portada {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.logo-issd {
+  max-width: 160px;
+  height: auto;
+  margin-top: 1rem;
+  margin-bottom: 1.8rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.18);
+}
+
+.titulo-app {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-primario);
+  margin: 1rem 0 2.2rem;
+  text-align: center;
+}
+
+.tabsAuth {
+  display: flex;
+  gap: 1rem;
+}
+
+.tab-auth {
+  margin-top: 0;
+  background: var(--color-fondo);
+  color: var(--color-texto-secundario);
+  padding: 0.7rem 1.8rem;
+  font-size: 1rem;
+}
+
+.tab-auth:hover {
+  background: var(--color-borde);
+}
+
+.tab-auth.activo {
+  background: var(--color-primario);
+  color: white;
+}
+
+.tab-auth.activo:hover {
+  background: var(--color-primario-oscuro);
+}
+
+/* ---------- Footer de créditos ---------- */
+
+.footer-creditos {
+  max-width: 1000px;
+  margin: 3.5rem auto 2.5rem;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  color: var(--color-texto-secundario);
+}
