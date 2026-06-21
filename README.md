@@ -1,8 +1,8 @@
-# 🏥 Sistema de Turnos Médicos
+#  Sistema de Turnos Médicos
 
 API REST para la gestión de turnos médicos, desarrollada como proyecto final de **Programación 2**. Implementa registro y login de usuarios, autenticación con JWT, control de acceso por roles, CRUD completo de turnos, validación de datos, manejo centralizado de errores, Clean Architecture y testing automatizado con Jest + Supertest.
 
-Este documento explica **qué hace cada parte del código y por qué**, para que se pueda entender, defender y exponer en la demo.
+Este documento explica **qué hace cada parte del código y por qué**, para que se pueda entender.
 
 ---
 
@@ -18,10 +18,10 @@ Este documento explica **qué hace cada parte del código y por qué**, para que
 | **cors** | Habilita que el front-end consuma la API desde otro origen/puerto. |
 | **dotenv** | Manejo de variables de entorno (`.env`). |
 | **Jest + Supertest** | Testing unitario y de integración. |
-| **mongodb-memory-server** | Permite correr los tests de integración sin necesidad de tener Mongo instalado: levanta una base de datos temporal en memoria solo durante los tests. |
-| **HTML / CSS / JS plano** | Front-end mínimo de prueba, sin frameworks, para poder probar todo desde el navegador. |
+| **mongodb-memory-server** | Permite correr los tests de integración sin necesidad de tener Mongo instalado: levanta una base de datos temporal en memoria solo durante los tests. 
+| **HTML / CSS / JS plano** | Front-end mínimo de prueba, sin frameworks, para poder probar todo desde el navegador. 
 
-Todas estas tecnologías y patrones fueron vistos a lo largo de las 12 clases de la materia; en la sección 6 de este documento se detalla, clase por clase, qué se aplicó.
+Todas estas tecnologías y patrones fueron vistos a lo largo de las 12 clases de la materia.
 
 ---
 
@@ -132,7 +132,7 @@ Esta organización sigue el esquema de **Clean Architecture** explicado en clase
 
 ---
 
-## 5. Decisiones de diseño importantes (para poder explicarlas en la demo)
+## 5. Decisiones de diseño importantes 
 
 ### 5.1. ¿Por qué los "profesionales" son usuarios con rol "admin"?
 
@@ -270,12 +270,12 @@ Los tests de integración usan `mongodb-memory-server`, así que se pueden corre
 
 Siguiendo los hitos sugeridos en la consigna del proyecto:
 
-1. ✅ **Definición de la estructura, modelo de datos y endpoints** — Diseño de los modelos `Usuario` y `Turno`, y de los endpoints REST.
-2. ✅ **Implementación básica de CRUD** — Endpoints de turnos (crear, listar, cambiar estado, cancelar).
-3. ✅ **Gestión de usuarios con roles y JWT** — Registro, login, JWT, roles admin/cliente.
-4. ✅ **Middleware de validación, autenticación, autorización** — `authMiddleware`, `roleMiddleware`, `express-validator`, `responseHandler`, `errorHandler`.
-5. ✅ **Pruebas unitarias e integración** — Jest + Supertest, `mongodb-memory-server`.
-6. ⬜ **Despliegue y demostración** — Pendiente de que cada estudiante despliegue su propia instancia (Render, Railway, etc.) y grabe la demo en video.
+1.  **Definición de la estructura, modelo de datos y endpoints** — Diseño de los modelos `Usuario` y `Turno`, y de los endpoints REST.
+2.  **Implementación básica de CRUD** — Endpoints de turnos (crear, listar, cambiar estado, cancelar).
+3.  **Gestión de usuarios con roles y JWT** — Registro, login, JWT, roles admin/cliente.
+4.  **Middleware de validación, autenticación, autorización** — `authMiddleware`, `roleMiddleware`, `express-validator`, `responseHandler`, `errorHandler`.
+5.  **Pruebas unitarias e integración** — Jest + Supertest, `mongodb-memory-server`.
+
 
 ---
 
@@ -285,4 +285,4 @@ Siguiendo los hitos sugeridos en la consigna del proyecto:
 - Migrar `fecha`/`hora` a un tipo `Date` con manejo explícito de zona horaria si la aplicación necesitara soportar distintas regiones.
 - Agregar paginación a los listados (`GET /api/turnos`, `GET /api/usuarios`) para grandes volúmenes de datos.
 - Agregar recuperación de contraseña (reset por email).
-- Servir el front-end desde un framework como React, en vez de HTML/JS plano (quedó fuera del alcance de esta materia).
+- Servir el front-end desde un framework como React, en vez de HTML/JS plano.
